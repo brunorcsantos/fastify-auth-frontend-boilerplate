@@ -53,4 +53,6 @@ export interface AuthContextType {
   register: (data: RegisterRequest) => Promise<User>;
 }
 
+
+
 export type Provider = "local" | "google" | "github" | "facebook" | "instagram";
