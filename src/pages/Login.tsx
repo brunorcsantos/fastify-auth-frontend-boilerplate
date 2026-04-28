@@ -9,7 +9,9 @@ import {
   loginWithFacebook,
   loginWithInstagram,
 } from "../services/authService";
-import AquariumBackground from "../components/AquariumBackground";
+import AuthLayout from "../layouts/AuthLayout";
+
+import { FaInstagram, FaGithub, FaFacebook, FaGoogle } from "react-icons/fa";
 
 const schema = z.object({
   email: z.email("E-mail inválido"),
@@ -17,6 +19,13 @@ const schema = z.object({
 });
 
 type LoginFormData = z.infer<typeof schema>;
+
+const inputStyle =
+  "w-full px-4 py-2 bg-secondary border-border text-foreground placeholder:text-muted-foreground rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring";
+const buttonStyle =
+  "w-full py-2 bg-primary text-primary-foreground font-semibold rounded-lg hover:opacity-90 transition-opacity duration-200";
+const oauthButtonStyle =
+  "flex gap-2 items-center justify-center border-border bg-secondary px-4 py-2 rounded-lg hover:bg-card transition-colors duration-200";
 
 const Login = () => {
   const {
@@ -37,59 +46,94 @@ const Login = () => {
       console.error(error);
     }
   };
-  
-  // return (
-  //   <div className="h-screen flex justify-center items-center bg-red-200">
-      
-  //     <div className="flex flex-col items-center bg-white shadow-2xl rounded-2xl">
-  //       <div className="">Login</div>
-  //       <form
-  //         className="flex flex-col items-center gap-2"
-  //         onSubmit={handleSubmit(onSubmit)}
-  //       >
-  //         <input
-  //           {...register("email")}
-  //           type="text"
-  //           placeholder="e-mail"
-  //           className="border rounded-sm focus:outline-none"
-  //         />
-  //         {errors.email && <span>{errors.email.message}</span>}
-  //         <input
-  //           {...register("password")}
-  //           type="password"
-  //           placeholder="password"
-  //           className="border rounded-sm focus:outline-none"
-  //         />
-  //         {errors.password && <span>{errors.password.message}</span>}
-  //         <button type="submit" className="bg-red-400 rounded-sm">
-  //           Login
-  //         </button>
-  //       </form>
-  //       <div>ou</div>
-  //       <div className="grid grid-flow-col grid-rows-2 gap-2">
-  //         <button type="button" onClick={loginWithGoogle}>
-  //           Google
-  //         </button>
-  //         <button type="button" onClick={loginWithGithub}>
-  //           Github
-  //         </button>
-  //         <button type="button" onClick={loginWithFacebook}>
-  //           Facebook
-  //         </button>
-  //         <button type="button" onClick={loginWithInstagram}>
-  //           Instagram
-  //         </button>
-  //       </div>
-  //       <div>
-  //         Não tem uma conta?{" "}
-  //         <Link to="/register" className="hover:underline">
-  //           Registre-se
-  //         </Link>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-  return (<AquariumBackground/>)
+
+  return (
+    <AuthLayout>
+      <div
+        className=" text-center text-3xl font-bold mb-6"
+        style={{
+          fontFamily: "'Space Grotesk', sans-serif",
+        }}
+      >
+        <h1 className="">Bem-vindo de volta</h1>
+
+        <p className="text-sm text-muted-foreground">
+          Entre com suas credenciais
+        </p>
+      </div>
+      <form
+        className="flex flex-col items-center gap-2 w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input
+          {...register("email")}
+          type="text"
+          placeholder="e-mail"
+          className={inputStyle}
+        />
+        {errors.email && <span>{errors.email.message}</span>}
+        <input
+          {...register("password")}
+          type="password"
+          placeholder="password"
+          className={inputStyle}
+        />
+        {errors.password && <span>{errors.password.message}</span>}
+        <button type="submit" className={buttonStyle}>
+          Login
+        </button>
+      </form>
+      <div className="flex items-center gap-3 mt-4">
+        <hr className="flex-1 border-border" />
+        ou
+        <hr className="flex-1 border-border" />
+      </div>
+      <div className="grid grid-cols-2 gap-2 mt-4">
+        <button
+          className={oauthButtonStyle}
+          type="button"
+          onClick={loginWithGoogle}
+        >
+          <FaGoogle />
+          Google
+        </button>
+        <button
+          className={oauthButtonStyle}
+          type="button"
+          onClick={loginWithGithub}
+        >
+          <FaGithub />
+          Github
+        </button>
+        <button
+          className={oauthButtonStyle}
+          type="button"
+          onClick={loginWithFacebook}
+        >
+          <FaFacebook />
+          Facebook
+        </button>
+        <button
+          className={oauthButtonStyle}
+          type="button"
+          onClick={loginWithInstagram}
+        >
+          <FaInstagram />
+          Instagram
+        </button>
+      </div>
+      <div className="mt-4 text-muted-foreground text-sm">
+        Não tem uma conta?{" "}
+        <Link
+          to="/register"
+          className="hover:underline text-primary hover:opacity-80 transition-opacity duration-200"
+        >
+          Registre-se
+        </Link>
+      </div>
+    </AuthLayout>
+  );
+  // return <div>Login</div>;
 };
 
 export default Login;

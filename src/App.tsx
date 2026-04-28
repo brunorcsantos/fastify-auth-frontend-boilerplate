@@ -14,7 +14,7 @@ export default function App() {
         path="/register"
         element={
           <PublicRoutes>
-            <Register/>
+            <Register />
           </PublicRoutes>
         }
       />
@@ -22,7 +22,7 @@ export default function App() {
         path="/login"
         element={
           <PublicRoutes>
-            <Login/>
+              <Login />
           </PublicRoutes>
         }
       />
@@ -30,7 +30,7 @@ export default function App() {
         path="/dashboard"
         element={
           <PrivateRoutes>
-            <Dashboard/>
+            <Dashboard />
           </PrivateRoutes>
         }
       />

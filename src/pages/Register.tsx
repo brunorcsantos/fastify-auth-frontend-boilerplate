@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import z from "zod";
 import { useAuth } from "../hooks/useAuth";
+import AuthLayout from "../layouts/AuthLayout";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -11,6 +12,11 @@ const schema = z.object({
 });
 
 type RegisterFormData = z.infer<typeof schema>;
+
+const inputStyle =
+  "w-full px-4 py-2 bg-secondary border-border text-foreground placeholder:text-muted-foreground rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ring";
+const buttonStyle =
+  "w-full py-2 bg-primary text-primary-foreground font-semibold rounded-lg hover:opacity-90 transition-opacity duration-200";
 
 const Register = () => {
   const {
@@ -34,45 +40,60 @@ const Register = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center bg-red-200">
-      <div className="flex flex-col items-center bg-white shadow-2xl rounded-2xl">
-        <div className="">Register</div>
-        <form
-          className="flex flex-col items-center gap-2"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <input
-            {...register("name")}
-            type="text"
-            placeholder="Name"
-            className="border rounded-sm focus:outline-none"
-          />
-          {errors.name && <span>{errors.name.message}</span>}
-          <input
-            {...register("email")}
-            type="email"
-            placeholder="seuemail@email.com.br"
-            className="border rounded-sm focus:outline-none"
-          />
-          {errors.email && <span>{errors.email.message}</span>}
-          <input
-            {...register("password")}
-            type="password"
-            placeholder="password"
-            className="border rounded-sm focus:outline-none"
-          />
-          {errors.password && <span>{errors.password.message}</span>}
-          <button type="submit" className="bg-red-400 rounded-sm">
-            Register
-          </button>
-        </form>
-        <div>ou</div>
-        <div>
-
-        Faça o <Link to="/login" className="hover:underline">Login</Link>
-        </div>
+    <AuthLayout>
+      <div
+        className=" text-center text-3xl font-bold mb-6"
+        style={{
+          fontFamily: "'Space Grotesk', sans-serif",
+        }}
+      >
+        <h1 className="">Criar conta</h1>
+        <p className="text-sm text-muted-foreground">Preencha seus dados</p>
       </div>
-    </div>
+      <form
+        className="flex flex-col items-center gap-2 w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input
+          {...register("name")}
+          type="text"
+          placeholder="Name"
+          className={inputStyle}
+        />
+        {errors.name && <span>{errors.name.message}</span>}
+        <input
+          {...register("email")}
+          type="email"
+          placeholder="youremail@email.com.br"
+          className={inputStyle}
+        />
+        {errors.email && <span>{errors.email.message}</span>}
+        <input
+          {...register("password")}
+          type="password"
+          placeholder="password"
+          className={inputStyle}
+        />
+        {errors.password && <span>{errors.password.message}</span>}
+        <button type="submit" className={buttonStyle}>
+          Register
+        </button>
+      </form>
+      <div className="flex items-center gap-3 mt-4">
+        <hr className="flex-1 border-border" />
+        ou
+        <hr className="flex-1 border-border" />
+      </div>
+      <div className="mt-4 text-muted-foreground text-sm">
+        Faça o{" "}
+        <Link
+          to="/login"
+          className="hover:underline text-primary hover:opacity-80 transition-opacity duration-200"
+        >
+          Login
+        </Link>
+      </div>
+    </AuthLayout>
   );
 };
 
