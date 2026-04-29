@@ -1,8 +1,7 @@
-import type { ReactNode } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const PrivateRoutes = ({ children }: { children: ReactNode }) => {
+const PrivateRoutes = () => {
   const { isAuthenticated, isLoading } = useAuth();
 
   // Verificar o bug de carregamento ao invés de direcionamento.
@@ -11,7 +10,7 @@ const PrivateRoutes = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <>{isAuthenticated ?  children  : <Navigate to="/login" replace />}</>
+    <>{isAuthenticated ?  <Outlet/>  : <Navigate to="/login" replace />}</>
   );
 };
 

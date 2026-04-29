@@ -5,6 +5,9 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Test from "./pages/Test";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Profile from "./pages/Profile";
 
 export default function App() {
   return (
@@ -22,26 +25,24 @@ export default function App() {
         path="/login"
         element={
           <PublicRoutes>
-              <Login />
+            <Login />
           </PublicRoutes>
         }
       />
       <Route
-        path="/dashboard"
+        path="/test"
         element={
-          <PrivateRoutes>
-            <Dashboard />
-          </PrivateRoutes>
+          <PublicRoutes>
+            <Test />
+          </PublicRoutes>
         }
       />
-      <Route
-        path="/profile"
-        element={
-          <PrivateRoutes>
-            <div>Profile</div>
-          </PrivateRoutes>
-        }
-      />
+      <Route element={<PrivateRoutes />}>
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+      </Route>
     </Routes>
   );
 }

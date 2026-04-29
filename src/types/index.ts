@@ -56,3 +56,9 @@ export interface AuthContextType {
 
 
 export type Provider = "local" | "google" | "github" | "facebook" | "instagram";
+export type Mode = "system" | "light" | "dark"
+
+export interface ThemeContextType {
+  mode: Mode;
+  toggleTheme: (mode: Mode) => void
+}

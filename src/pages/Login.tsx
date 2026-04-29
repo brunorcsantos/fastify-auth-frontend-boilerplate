@@ -49,6 +49,7 @@ const Login = () => {
 
   return (
     <AuthLayout>
+      
       <div
         className=" text-center text-3xl font-bold mb-6"
         style={{
