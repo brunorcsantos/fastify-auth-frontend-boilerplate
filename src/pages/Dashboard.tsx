@@ -6,6 +6,7 @@ const Dashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  console.log(user)
   const dateConverter = (date: string) => {
     const isoString = date;
     const data = new Date(isoString!);
@@ -35,7 +36,7 @@ const Dashboard = () => {
           {/* cabeçalho do card */}
           <div className="flex items-center gap-2 mb-4">
             <FiUser />
-            <p className="font-semibold">Perfil</p>
+            <p className="font-semibold">Profile</p>
           </div>
           {/* conteúdo do card */}
           <div className="flex flex-col gap-2">
@@ -59,20 +60,20 @@ const Dashboard = () => {
           {/* cabeçalho do card */}
           <div className="flex items-center gap-2 mb-4">
             <FiCalendar />
-            <p className="font-semibold">Conta </p>
+            <p className="font-semibold">Account </p>
           </div>
           {/* conteúdo do card */}
           <div className="flex flex-col gap-2">
             {/* pares label + valor virão aqui */}
             <div className="flex flex-col">
-              <span className="text-xs text-muted-foreground">Criado em</span>
+              <span className="text-xs text-muted-foreground">Created at</span>
               <span className="text-sm text-foreground">
                 {dateConverter(user!.createdAt)}
               </span>
             </div>
             <div className="flex flex-col">
               <span className="text-xs text-muted-foreground">
-                Última Atualização
+                Last Update
               </span>
               <span className="text-sm text-foreground">
                 {dateConverter(user!.updatedAt)}
@@ -85,7 +86,7 @@ const Dashboard = () => {
           {/* cabeçalho do card */}
           <div className="flex items-center gap-2 mb-4">
             <FiShield />
-            <p className="font-semibold">Sessão</p>
+            <p className="font-semibold">Session</p>
           </div>
           {/* conteúdo do card */}
           <div className="flex flex-col gap-2">
@@ -107,7 +108,7 @@ const Dashboard = () => {
           {/* cabeçalho do card */}
           <div className="flex items-center gap-2 mb-4">
             <FiSettings />
-            <p className="font-semibold">Ações </p>
+            <p className="font-semibold">Actions</p>
           </div>
           {/* conteúdo do card */}
           <div className="flex flex-col gap-2">
@@ -116,13 +117,13 @@ const Dashboard = () => {
               to="/profile"
               className="flex items-center justify-center cursor-pointer py-2 bg-primary text-primary-foreground font-semibold border border-border rounded-xl"
             >
-              Editar Perfil
+              Edit Profile
             </Link>
             <button
               className="cursor-pointer py-2 bg-destructive text-primary-foreground font-semibold border border-border rounded-xl"
               onClick={handleLogout}
             >
-              Sair
+              Logout
             </button>
           </div>
         </div>
