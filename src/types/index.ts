@@ -51,6 +51,7 @@ export interface AuthContextType {
   login: (data: LoginRequest) => Promise<LoginResponse>;
   logout: (data: LogoutRequest) => Promise<void>;
   register: (data: RegisterRequest) => Promise<User>;
+  update: (data: RegisterRequest) => Promise<User>;
 }
 
 

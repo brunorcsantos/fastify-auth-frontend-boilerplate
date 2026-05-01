@@ -4,6 +4,7 @@ import type {
   LoginRequest,
   LogoutRequest,
   RegisterRequest,
+  UpdateProfileRequest,
   User,
 } from "../types";
 import {
@@ -11,7 +12,7 @@ import {
   registerService,
   logoutService,
 } from "../services/authService";
-import { getMe } from "../services/userService";
+import { getMe, updateProfile } from "../services/userService";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -77,9 +78,19 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const update = async (data: UpdateProfileRequest) => {
+    try {
+      const response = await updateProfile(data)
+      
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, isLoading, login, logout, register }}
+      value={{ user, isAuthenticated, isLoading, login, logout, register, update }}
     >
       {children}
     </AuthContext.Provider>

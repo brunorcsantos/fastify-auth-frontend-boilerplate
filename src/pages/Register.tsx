@@ -22,7 +22,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(schema),
   });
@@ -38,6 +38,9 @@ const Register = () => {
       console.error(error);
     }
   };
+
+  const inputClass = (hasError: boolean) =>
+  `${inputStyle} ${hasError ? "border border-destructive" : ""}`;
 
   return (
     <AuthLayout>
@@ -58,25 +61,25 @@ const Register = () => {
           {...register("name")}
           type="text"
           placeholder="Name"
-          className={inputStyle}
+          className={inputClass(!!errors.name)}
         />
-        {errors.name && <span>{errors.name.message}</span>}
+        {errors.name && <span className="text-destructive text-sm">{errors.name.message}</span>}
         <input
           {...register("email")}
           type="email"
           placeholder="youremail@email.com.br"
-          className={inputStyle}
+          className={inputClass(!!errors.email)}
         />
-        {errors.email && <span>{errors.email.message}</span>}
+        {errors.email && <span className="text-destructive text-sm">{errors.email.message}</span>}
         <input
           {...register("password")}
           type="password"
           placeholder="password"
-          className={inputStyle}
+          className={inputClass(!!errors.password)}
         />
-        {errors.password && <span>{errors.password.message}</span>}
-        <button type="submit" className={buttonStyle}>
-          Register
+        {errors.password && <span className="text-destructive text-sm">{errors.password.message}</span>}
+        <button type="submit" className={isSubmitting ? buttonStyle + " cursor-not-allowed" : buttonStyle}>
+          {isSubmitting ? "Registrando..." : "Registre-se"}
         </button>
       </form>
       <div className="flex items-center gap-3 mt-4">

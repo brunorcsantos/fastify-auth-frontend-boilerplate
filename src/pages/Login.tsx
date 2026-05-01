@@ -27,11 +27,13 @@ const buttonStyle =
 const oauthButtonStyle =
   "flex gap-2 items-center justify-center border-border bg-secondary px-4 py-2 rounded-lg hover:bg-card transition-colors duration-200";
 
+
+
 const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(schema),
   });
@@ -47,9 +49,11 @@ const Login = () => {
     }
   };
 
+  const inputClass = (hasError: boolean) =>
+  `${inputStyle} ${hasError ? "border border-destructive" : ""}`;
+
   return (
     <AuthLayout>
-      
       <div
         className=" text-center text-3xl font-bold mb-6"
         style={{
@@ -70,18 +74,18 @@ const Login = () => {
           {...register("email")}
           type="text"
           placeholder="e-mail"
-          className={inputStyle}
+          className={inputClass(!!errors.email)}
         />
-        {errors.email && <span>{errors.email.message}</span>}
+        {errors.email && <span className="text-destructive text-sm">{errors.email.message}</span>}
         <input
           {...register("password")}
           type="password"
           placeholder="password"
-          className={inputStyle}
+          className={inputClass(!!errors.password)}
         />
-        {errors.password && <span>{errors.password.message}</span>}
-        <button type="submit" className={buttonStyle}>
-          Login
+        {errors.password && <span className="text-destructive text-sm">{errors.password.message}</span>}
+        <button disabled={isSubmitting} type="submit" className={ isSubmitting ? buttonStyle + " cursor-not-allowed"  : buttonStyle }>
+          {isSubmitting ? "Entrando..." : "Entrar"}
         </button>
       </form>
       <div className="flex items-center gap-3 mt-4">
